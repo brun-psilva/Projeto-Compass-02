@@ -35,7 +35,8 @@ O projeto disposto na segunda fase consiste em elaborar um ambiente escalável e
 
 # Arquitetura Disposta
 
-![Imagem de Exemplo](Images/Captura de tela de 2024-12-05 22-47-58.png)
+![Arquitetura do Projeto](Images/Captura%20de%20tela%20de%202024-12-05%2022-47-58.png)
+
 
 ### Criação da VPC
 Para criação da VPC, afim de distribuir toda a infraestrutura da rede para conexão das instâncias, fiz da seguinte forma:
