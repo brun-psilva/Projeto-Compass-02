@@ -97,18 +97,12 @@ Os parâmetros são:
 
 ##### Nomes e Tags;
 
-*Name*
-*Valor*: `Fornecido pela Compass`
-*Tipos de Recurso*: `Instâncias e Volumes`
+|Chave      |   Valor           | Tipos de Recurso |
+|-----------|-------------------|------------------|
+|Name       | Forn. Pela Compass|Instância e Volumes|
+|CostCenter      | Forn. Pela Compass|Instância e Volumes|
+|Project       | Forn. Pela Compass|Instância e Volumes|
 
-
-*CostCenter*
-*Valor*: `Fornecido pela Compass`
-*Tipos de Recurso*: `Instâncias e Volumes`
-
-*Project*
-*Valor*: `Fornecido pela Compass`
-*Tipos de Recurso*: `Instâncias e Volumes`
 
 A imagem que usei foi a Ubuntu Server que estava neste momento na versão 24.04 LTS
 O tipo de instância usada foi T2.micro
