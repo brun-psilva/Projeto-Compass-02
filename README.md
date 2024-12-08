@@ -41,7 +41,7 @@ O projeto disposto na segunda fase consiste em elaborar um ambiente escalável e
 ### Criação da VPC
 Para criação da VPC, afim de distribuir toda a infraestrutura da rede para conexão das instâncias, fiz da seguinte forma:
 
-Imagem de Exemplo->
+![Imagem de Exemplo](Images/Captura%20de%20tela%20de%202024-12-05%2022-58-10.png)
 
 Usei o modo defaut de criação de VPC, para que assim pudesse aprimorar com o desencadear do projeto.
 
