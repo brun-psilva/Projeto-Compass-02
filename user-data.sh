@@ -31,11 +31,7 @@ sudo usermod -aG docker ubuntu
 sudo apt-get -y install nfs-common
 sudo mkdir -p /efs
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 172.31.13.107:/ /efs
-
-sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-00d8682ae55cd00bb.efs.us-east-1.amazonaws.com:/ /efs
-
 echo "172.31.13.107:/     /efs      nfs4      nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev      0      0" | sudo tee -a /etc/fstab
-
 
 # Criando o arquivo docker-compose.yaml com configuração do WordPress conectado ao RDS
 cat <<EOF | sudo tee /home/ubuntu/docker-compose.yaml
