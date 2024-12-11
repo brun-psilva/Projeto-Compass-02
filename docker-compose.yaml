@@ -1,0 +1,13 @@
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_HOST: O Endpoint do seu RDS
+      WORDPRESS_DB_USER: (o nome de úsuário usado na criação do BD)
+      WORDPRESS_DB_PASSWORD: (senha usada na criação)
+      WORDPRESS_DB_NAME: (nome escolhido na criação)
+    volumes:
+      - /efs/wordpress:/var/www/html
