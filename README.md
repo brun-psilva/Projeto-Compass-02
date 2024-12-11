@@ -8,20 +8,19 @@ O projeto disposto na segunda fase consiste em elaborar um ambiente escalável e
 ![Arquitetura do Projeto](Images/Captura%20de%20tela%20de%202024-12-05%2022-47-58.png)
 
 
-### 1- Criar a  VPC  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmMZtwc-VasTSfurIBRTht-8egDzD8qZ4kLA&s" alt="Imagem" width="30" />
+# 1- Criar a  VPC  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmMZtwc-VasTSfurIBRTht-8egDzD8qZ4kLA&s" alt="Imagem" width="30" />
 
 
-Para criação da VPC, afim de distribuir toda a infraestrutura da rede para conexão das instâncias, fiz da seguinte forma:
+Para criação da VPC, afim de distribuir toda a infraestrutura da rede para conexão das instâncias, foi criado da seguinte forma:
 
-![Imagem de Exemplo](Images/Captura%20de%20tela%20de%202024-12-05%2022-58-10.png)
-
-Usei o modo defaut de criação de VPC, para que assim pudesse aprimorar com o desencadear do projeto.
+Foi usado o modo VPC e mais para criar em andamento subnets e designação de IPs para as redes Públicas e Privadas.
 
 Foi criada 4 subnets, sendo duas Públicas e dua Privadas, para agregar as duas EC2, sendo uma ná pública e a outra em uma privada, limitando o acesso.Dentro desta privada é que rodará nosso script com WordPress. E ainda, estas 4 distribiuídas em duas zonas de disponibilidade, 1a e 1b.
 
-Para controlar o acesso, criei um Gateway NAT, para controlar o acesso entre as redes na VPC.
+![Imagem de Exemplo](Images/Captura%20de%20tela%20de%202024-12-05%2022-58-10.png)
 
-### 2- SG (Security Groups) <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPrTFVYWkYH6XJ7WlQDc0B9vnsoliVLyOqtg&s" alt="Imagem" width="30" />
+
+# 2- SG (Security Groups) <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPrTFVYWkYH6XJ7WlQDc0B9vnsoliVLyOqtg&s" alt="Imagem" width="30" />
 
 Após a criação da VPC, foi designado um Grupo de segurança para designar a forma de comunicação das Instâncias e assim limitar e liberar o acesso delas a recursos de infra.
 
@@ -32,7 +31,7 @@ Já para as instâncias, foi criado um grupo público, com IP aberto, para que p
 ![Criar SG](Images/SG.png)
 
 
-### 3- RDS ( Banco de Dados) <img src="https://cloud-icons.onemodel.app/aws/Architecture-Service-Icons_01312023/Arch_Database/64/Arch_Amazon-RDS_64.svg" alt="Amazon RDS" width="30" />
+# 3- RDS ( Banco de Dados) <img src="https://cloud-icons.onemodel.app/aws/Architecture-Service-Icons_01312023/Arch_Database/64/Arch_Amazon-RDS_64.svg" alt="Amazon RDS" width="30" />
 
 
 Para que que a aplicação WordPress possa rodar, ela precisa estar conectada a um Banco de dados. E para criação dele, usei a documentação presente 👉[Neste link da AWS](https://aws.amazon.com/pt/tutorials/deploy-wordpress-with-amazon-rds/module-one/).
@@ -58,7 +57,7 @@ E em Informações adicionais
 
 ![Criar RDS](Images/RDS.png)
 
-### 4- Criação do EFS <img src="https://cdn.worldvectorlogo.com/logos/amazon-elastic-file-system.svg" alt="Amazon Elastic File System" width="30" />
+# 4- Criação do EFS <img src="https://cdn.worldvectorlogo.com/logos/amazon-elastic-file-system.svg" alt="Amazon Elastic File System" width="30" />
 
 
 Para que os dados da aplicação fiquem salvos, configuramos o EFS desta forma:
@@ -70,7 +69,7 @@ Aperte em `Criar`
 
 ![Criação do EFS](Images/EFS.png)
 
-### 5- Criar da EC2 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRULf2JOHbvkPux8pEzQrkH70TVSpfgRMzgQA&s" alt="Imagem" width="30" />
+# 5- Criar da EC2 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRULf2JOHbvkPux8pEzQrkH70TVSpfgRMzgQA&s" alt="Imagem" width="30" />
 
 Para montar a EC2, de início, recomenda-se a criação a mão da instancia para testes e assim poder montar o seu `user_data.yaml`. Vá para o menu EC2 e clique em Executar Instância
 
@@ -124,7 +123,7 @@ sudo usermod -aG docker ubuntu
 ````
 
 
-#### 5.1 Montando o EFS na instância
+### 5.1 Montando o EFS na instância
 
 Com o Docker instalado e Rodando, monta-se o EFS na máquina, para isso use o comando abaixo para instalar o nfs-common (como usamos a imagem do Ubuntu).
 Para a montagem, existem dois modos, via DNS e IP, eu escolhi a opçãop IP
@@ -140,7 +139,7 @@ sudo chmod 666 /etc/fstab
 sudo echo "10.0.0.49:/     /efs      nfs4      nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev      0      0" >> /etc/fstab
 ```
 
-#### 5.2- Docker Compose
+### 5.2- Docker Compose
 
 Para agregar as informações necessárias e assim fazer o contêiner subir na instância, precisa-se criar um comando para  que o WordPress possa alocar os arquivos em um volume, que no caso é o nosso EFS, e os dados de acesso salvos dentro do BD que é o nosso RDS.
 Neste arquivo indicamos as variáveis para comunicação entre eles.
@@ -168,7 +167,7 @@ docker-compose -f docker-compose.yaml up -d
 👉 [Acesse o arquivo aqui](user-data.sh)
 
 
-### 6- Modelo e Execução (LaunchTemplate)
+# 6- Modelo e Execução (LaunchTemplate)
 
 Para criação do Template (ou modelo de Execução) eu usei as mesmas configurações que usamos para criar uma instância [neste passo a passo aqui](#criar-da-ec2), com a ajuda deste [link](https://docs.aws.amazon.com/pt_br/AWSEC2/latest/UserGuide/create-launch-template.html).
 Este template server para iniciar o processo de automatização na criação da instância, permitindo agilidade no processo.
@@ -176,7 +175,7 @@ A partir dele, podemos usar o nosso `user_data.sh`.
 
 ![Criação do Laucher Template](Images/Template.png)
 
-#### 7- Load Balancer <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoIurm2To356ZIRbU9WEI68f4tE0u0SRWJgA&s" alt="Imagem" width="30" />
+# 7- Load Balancer <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoIurm2To356ZIRbU9WEI68f4tE0u0SRWJgA&s" alt="Imagem" width="30" />
 
 
 O Load Balancer permite a escolha de forma automatizada, de uma instância para que seja acessada na internet. Checando a sua integridade e saúde para que através do seu endereço de DNS possa ser feito assim o acesso.
@@ -185,7 +184,7 @@ Para criar acesse EC2 ➡️ Load Balancers e selecione o modo **Classic Load Ba
 
 ![Criar loadbalancer](Images/LoadBalancer.png)
 
-#### 8- NAT Gateway <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw5-86agdUg-gH27coeOmjKmj2nbqVOHvbSQ&s" alt="Imagem" width="30" />
+# 8- NAT Gateway <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw5-86agdUg-gH27coeOmjKmj2nbqVOHvbSQ&s" alt="Imagem" width="30" />
 
 
 Permite o acesso das instâncias privadas  a internet, já que até o momento, apenas a máquina pública dispoe de acesso:
@@ -206,11 +205,11 @@ Encontre a tabela `example-private-route-table` e, em Rotas -> Editar Rotas, adi
 
 
 
-#### Conclusões e Agradecimentos
+# Conclusões e Agradecimentos
 
 Quero agradecer pelo conhecimento adquirido ao longo desse projeto, que me permitiu configurar um ambiente seguro e escalável na AWS para rodar um site WordPress. Com as orientações, consegui estruturar uma VPC com sub-redes públicas e privadas, configurar o RDS como banco de dados e o EFS para armazenar os dados de forma persistente.
 
-Também aprendi a implementar um Load Balancer, configurar um Gateway NAT e ajustar grupos de segurança para proteger o ambiente. Utilizei Docker e Docker Compose para integrar o WordPress ao EFS e ao RDS, e automatizei o processo com um script user_data.sh e um template de execução. Esse aprendizado foi essencial para garantir alta disponibilidade e segurança no projeto. Muito obrigado!
+Também aprendi a implementar um Load Balancer, configurar um Gateway NAT e ajustar grupos de segurança para proteger o ambiente. A utilizar o Docker e Docker Compose para integrar o WordPress ao EFS e ao RDS, como também automatizar o processo com um script user_data.sh e um template de execução. Esse aprendizado foi essencial para garantir alta disponibilidade e segurança no projeto. Muito obrigado!
 
 
 
